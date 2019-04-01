@@ -1,0 +1,6 @@
+{
+    "package-name": "js-companies",
+    "installed-apps": [
+        "js_companies"
+    ]
+}
