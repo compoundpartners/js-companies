@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 
-from filer.fields.image import FilerImageField
+from filer.fields.file import FilerFileField
 
 
 @python_2_unicode_compatible
@@ -13,7 +13,7 @@ class Company(models.Model):
     name = models.CharField(_('Company Name'), max_length=255)
     url = models.CharField(_('Page URL'), max_length=255,
         null=True, blank=True)
-    image = FilerImageField(verbose_name=_('image'),
+    image = FilerFileField(verbose_name=_('image'),
         null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
