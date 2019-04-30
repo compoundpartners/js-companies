@@ -6,6 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 
 from filer.fields.file import FilerFileField
+from sortedm2m.fields import SortedManyToManyField
 
 
 @python_2_unicode_compatible
@@ -15,6 +16,14 @@ class Company(models.Model):
         null=True, blank=True)
     image = FilerFileField(verbose_name=_('image'),
         null=True, blank=True, on_delete=models.SET_NULL)
+
+    articles = SortedManyToManyField('aldryn_newsblog.Article', verbose_name=_('articles'), related_name='companies', blank=True)
+    newsblogjsrelatedplugins = SortedManyToManyField('aldryn_newsblog.NewsBlogJSRelatedPlugin', verbose_name=_('newsblogjsrelatedplugins'), related_name='related_companies', blank=True)
+    events = SortedManyToManyField('js_events.Event', verbose_name=_('events'), related_name='companies', blank=True)
+    people = SortedManyToManyField('aldryn_people.Person', verbose_name=_('people'), related_name='companies', blank=True)
+    relatedpeopleplugin = SortedManyToManyField('aldryn_people.RelatedPeoplePlugin', verbose_name=_('relatedpeopleplugin'), related_name='related_companies', blank=True)
+    services = SortedManyToManyField('js_services.Service', verbose_name=_('services'), related_name='companies', blank=True)
+    relatedservicesplugin = SortedManyToManyField('js_services.RelatedServicesPlugin', verbose_name=_('relatedservicesplugin'), related_name='related_companies', blank=True)
 
     def __str__(self):
         return self.name
