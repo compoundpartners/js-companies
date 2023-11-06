@@ -17,4 +17,5 @@ js_companies/migrations/0002_auto_20190417_0522.py
 js_companies/migrations/0003_auto_20190430_0401.py
 js_companies/migrations/0004_auto_20190430_0805.py
 js_companies/migrations/0005_auto_20210312_1343.py
+js_companies/migrations/0006_company_categorisationextension.py
 js_companies/migrations/__init__.py

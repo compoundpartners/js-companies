@@ -25,6 +25,8 @@ class Company(models.Model):
     relatedpeopleplugin = SortedManyToManyField('aldryn_people.RelatedPeoplePlugin', verbose_name=_('relatedpeopleplugin'), related_name='related_companies', blank=True)
     services = SortedManyToManyField('js_services.Service', verbose_name=_('services'), related_name='companies', blank=True)
     relatedservicesplugin = SortedManyToManyField('js_services.RelatedServicesPlugin', verbose_name=_('relatedservicesplugin'), related_name='related_companies', blank=True)
+    categorisationextension = models.ManyToManyField('js_extentions.CategorisationExtension', symmetrical=True, related_name='companies', blank=True, )
+
 
     #app config fields and mithods
     type = models.CharField(
