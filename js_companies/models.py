@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
+from django.utils.text import slugify
 
 from filer.fields.file import FilerFileField
 from sortedm2m.fields import SortedManyToManyField
@@ -24,6 +25,30 @@ class Company(models.Model):
     relatedpeopleplugin = SortedManyToManyField('aldryn_people.RelatedPeoplePlugin', verbose_name=_('relatedpeopleplugin'), related_name='related_companies', blank=True)
     services = SortedManyToManyField('js_services.Service', verbose_name=_('services'), related_name='companies', blank=True)
     relatedservicesplugin = SortedManyToManyField('js_services.RelatedServicesPlugin', verbose_name=_('relatedservicesplugin'), related_name='related_companies', blank=True)
+
+    #app config fields and mithods
+    type = models.CharField(
+        _('Type'),
+        max_length=100,
+        default='js_locations.Location',
+    )
+    namespace = models.CharField(
+        _('Instance namespace'),
+        #default=None,
+        max_length=100,
+        unique=True,
+        blank=True,
+        null=True,
+    )
+
+    cmsapp = None
+
+    def save(self, *args, **kwargs):
+        self.type = '%s.%s' % (
+            self.__class__.__module__, self.__class__.__name__)
+        if not self.namespace:
+            self.namespace = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
